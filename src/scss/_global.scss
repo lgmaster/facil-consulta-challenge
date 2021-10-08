@@ -1,6 +1,31 @@
 @import "./variables";
 @import "./functions";
 
+@import "../../node_modules/bootstrap/scss/mixins";
+
 * {
   font-family: $OpenSans;
+}
+
+:disabled {
+  opacity: 0.1 !important;
+}
+
+$grid-breakpoints: (xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px);
+
+@include media-breakpoint-down(sm) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  html {
+    font-size: 15px;
+  }
 }
