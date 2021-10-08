@@ -1,11 +1,29 @@
 <template>
-  <div class="home container"></div>
+  <article class="home container">
+    <div class="row">
+      <h1>Sobre o profissional</h1>
+      <h2>Dados do profissional</h2>
+    </div>
+    <div class="row">
+      <Form />
+      <div class="col">
+        <img
+          src="@/assets/images/desktop-pagina-1.png"
+          alt="imagem do formulário"
+        />
+      </div>
+    </div>
+  </article>
 </template>
 
 <script>
+import Form from "@/components/Form.vue";
+
 export default {
   name: "Home",
-  components: {},
+  components: {
+    Form,
+  },
 };
 </script>
 
