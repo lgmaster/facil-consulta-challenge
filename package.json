@@ -9,12 +9,12 @@
   },
   "dependencies": {
     "@braid/vue-formulate": "^2.5.2",
-    "@braid/vue-formulate-i18n": "^1.16.0",
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.1.2",
     "core-js": "^3.6.5",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
+    "vanilla-masker": "^1.2.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
