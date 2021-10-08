@@ -27,7 +27,6 @@
         v-model="selectedState"
         :options="{
           PR: 'Paraná',
-          SP: 'São Paulo',
           SC: 'Santa Catarina',
           RS: 'Rio Grande do Sul',
         }"
@@ -84,10 +83,9 @@ export default {
       selectedState: null,
       selectedCity: null,
       cities: {
-        SP: ["São Paulo"],
-        PR: ["Curitiba"],
-        SC: ["Florianópolis"],
-        RS: ["Pelotas"],
+        PR: ["Londrina", "Maringá"],
+        SC: ["Florianópolis", "Joinville"],
+        RS: ["Pelotas", "Porto Alegre"],
       },
     };
   },
