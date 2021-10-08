@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@braid/vue-formulate": "^2.5.2",
+    "@braid/vue-formulate-i18n": "^1.16.0",
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.1.2",
     "core-js": "^3.6.5",
