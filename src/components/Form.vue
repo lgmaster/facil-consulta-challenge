@@ -21,32 +21,37 @@
       validation="required"
       :validation-messages="{ required: 'Telefone é obrigatório' }"
     />
-    <FormulateInput
-      v-model="selectedState"
-      :options="{
-        PR: 'Paraná',
-        SP: 'São Paulo',
-        SC: 'Santa Catarina',
-        RS: 'Rio Grande do Sul',
-      }"
-      type="select"
-      placeholder="Selecione"
-      label="Estado*"
-      validation="required"
-      :validation-messages="{ required: 'Estado é obrigatório' }"
-    />
-    <FormulateInput
-      v-model="selectedCity"
-      :options="cities[selectedState]"
-      type="select"
-      placeholder="Selecione"
-      label="Cidade*"
-      validation="required"
-      :validation-messages="{ required: 'Cidade é obrigatório' }"
-    />
 
-    <div class="form__progress">
-      <div class="progress">
+    <div class="form__selects row">
+      <FormulateInput
+        v-model="selectedState"
+        :options="{
+          PR: 'Paraná',
+          SP: 'São Paulo',
+          SC: 'Santa Catarina',
+          RS: 'Rio Grande do Sul',
+        }"
+        type="select"
+        placeholder="Selecione"
+        label="Estado*"
+        validation="required"
+        :validation-messages="{ required: 'Estado é obrigatório' }"
+        class="col"
+      />
+      <FormulateInput
+        v-model="selectedCity"
+        :options="cities[selectedState]"
+        type="select"
+        placeholder="Selecione"
+        label="Cidade*"
+        validation="required"
+        :validation-messages="{ required: 'Cidade é obrigatório' }"
+        class="col"
+      />
+    </div>
+
+    <div class="form__progress row ms-0 mt-3">
+      <div class="progress col p-0">
         <div
           class="progress-bar"
           role="progressbar"
@@ -56,6 +61,7 @@
           aria-valuemax="100"
         ></div>
       </div>
+      <span class="col-4 col-sm-3 col-md-2 text-end">1 de 2</span>
     </div>
 
     <FormulateInput type="submit" label="Próximo" />
@@ -88,5 +94,71 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.form {
+  .formulate-input {
+    min-height: toRem(95px);
+
+    &:last-of-type {
+      min-height: 0;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid $primary-0;
+      border-radius: toRem(8px);
+      height: toRem(40px);
+      padding: toRem(5px) toRem(5px);
+    }
+  }
+
+  &__progress {
+    margin-bottom: toRem(20px);
+
+    .progress {
+      height: toRem(20px);
+
+      .progress-bar {
+        background: $primary-0;
+      }
+    }
+
+    span {
+      color: $primary-0;
+      font-family: $Comfortaa;
+      font-weight: 700;
+    }
+  }
+
+  button {
+    width: 100%;
+    height: toRem(40px);
+    background: $primary-0;
+    color: $secondary-0;
+    text-transform: uppercase;
+    border-radius: toRem(12px);
+    border: none;
+
+    span {
+      font-family: $Comfortaa;
+      font-weight: 700;
+    }
+  }
+
+  .formulate-input-errors {
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  [data-is-showing-errors="true"] input,
+  [data-is-showing-errors="true"] select {
+    border: 1px solid $danger;
+  }
+
+  .formulate-input-error {
+    list-style: none;
+    color: $danger;
+  }
+}
 </style>
