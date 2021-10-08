@@ -6,11 +6,11 @@
     </header>
     <div class="row align-items-center home__content mt-3">
       <Form />
-      <div class="col d-none d-md-none d-lg-flex">
+      <div class="col d-none d-md-none d-lg-flex justify-content-end">
         <img
           src="@/assets/images/desktop-pagina-1.png"
           alt="imagem do formulário"
-          class="img-fluid justify-self-start"
+          class="img-fluid"
         />
       </div>
     </div>
