@@ -20,6 +20,9 @@ export default new Vuex.Store({
     incrementStep(state) {
       state.step += 1;
     },
+    resetStep(state) {
+      state.step = 1;
+    },
     saveFormData(state, data) {
       state.formData = { ...state.formData, data };
     },
