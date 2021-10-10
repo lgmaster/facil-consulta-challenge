@@ -3,16 +3,17 @@
     class="home container d-flex flex-column justify-content-between flex-wrap"
   >
     <header class="row justify-self-start">
-      <h1>Sobre o profissional</h1>
-      <h2>Dados do profissional</h2>
+      <h1>{{ texts[step].title }}</h1>
+      <h2>{{ texts[step].text }}</h2>
     </header>
     <div class="row home__content mt-3 d-flex flex-grow-1 align-items-center">
       <Form />
       <div class="col d-none d-md-none d-lg-flex flex-grow-1 align-items-start">
         <img
-          src="@/assets/images/desktop-pagina-1.png"
+          :src="require('@/assets/images/desktop-pagina-' + step + '.png')"
           alt="imagem do formulário"
           class="img-fluid"
+          v-if="step < 4"
         />
       </div>
     </div>
@@ -20,12 +21,40 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Form from "@/components/Form.vue";
 
 export default {
   name: "Home",
+  data() {
+    return {
+      texts: {
+        1: {
+          title: "Sobre o profissional",
+          text: "Dados do profissional",
+        },
+        2: {
+          title: "Sobre o atendimento",
+          text: "Detalhes do atendimento",
+        },
+        3: {
+          title: "Revisão do cadastro",
+          text: null,
+        },
+        4: {
+          title: "Confirmação do cadastro",
+          text: null,
+        },
+      },
+    };
+  },
   components: {
     Form,
+  },
+  computed: {
+    ...mapGetters({
+      step: "getActiveStep",
+    }),
   },
 };
 </script>
