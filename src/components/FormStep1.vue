@@ -64,7 +64,7 @@
 
     <Progress />
 
-    <Button buttontext="Próximo" />
+    <Button color="primary-0" buttontext="Próximo" />
   </FormulateForm>
 </template>
 
@@ -105,8 +105,7 @@ export default {
   methods: {
     handleClickForm(data) {
       this.$store.commit("saveFormData", data);
-      this.$store.commit("incrementStep", 1);
-      console.log(this.formValues);
+      this.$store.commit("incrementStep");
     },
     inputMask(type, event) {
       const masks = {
@@ -124,7 +123,7 @@ export default {
     },
   },
   mounted() {
-    const storedData = this.$store.state.formData.data;
+    const storedData = this.$store.getters.getFormData;
     if (storedData) {
       this.inputMaskValue.tel = storedData.telephone;
       this.inputMaskValue.doc = storedData.cpf;
