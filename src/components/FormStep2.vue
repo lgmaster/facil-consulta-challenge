@@ -7,7 +7,7 @@
   >
     <FormulateInput
       v-model="mainSpecialty"
-      name="city"
+      name="specialty"
       :options="mainSpecialties"
       type="select"
       placeholder="Selecione a especialidade"
@@ -38,6 +38,7 @@
         pix: 'Pix',
         card: 'Cartão de crédito',
       }"
+      name="paymentmethods"
       type="checkbox"
       label="Formas de pagamento da consulta*"
       validation="required"
@@ -48,19 +49,20 @@
 
     <FormulateInput
       v-model="cardInstallments"
-      v-if="paymentMethod.some((n) => n === 'card')"
+      v-if="paymentMethod.length > 0 && paymentMethod.some((n) => n === 'card')"
       :options="{
         1: '1x, sem juros',
         2: '2x, sem juros',
         3: '3x, sem juros',
       }"
       type="radio"
+      name="installments"
       label="Parcelamento em"
     />
 
     <Progress />
 
-    <Button buttontext="Próximo" />
+    <Button color="primary-0" buttontext="Próximo" />
   </FormulateForm>
 </template>
 
@@ -96,36 +98,9 @@ export default {
   },
   watch: {
     consultationFee(newValue) {
-      let value = Number(newValue.replace("R$ ", "").replaceAll(",", ""));
+      this.checkValueRange(newValue);
 
-      const setError = (message) => {
-        this.$formulate.handle(
-          {
-            inputErrors: {
-              consultationFee: message,
-              error: true,
-            },
-          },
-          // eslint-disable-next-line
-          "step2"
-        );
-      };
-
-      if (value.toString().length > 1) {
-        if (value < 30 || value > 350) {
-          value = 0;
-          setError("Valor tem que ser entre R$ 30 e R$ 350");
-          this.error = true;
-        } else {
-          setError("");
-          this.error = false;
-        }
-      } else {
-        setError("Valor tem que ser entre R$ 30 e R$ 350");
-        this.error = true;
-      }
-
-      this.consultationFee = VMasker.toMoney(value, {
+      this.consultationFee = VMasker.toMoney(this.checkValueRange(newValue), {
         precision: 0,
         separator: ",",
         delimiter: ".",
@@ -142,11 +117,51 @@ export default {
   },
   methods: {
     handleClickForm(data) {
+      this.checkValueRange(this.consultationFee);
       if (!this.error) {
         this.$store.commit("saveFormData", data);
-        this.$store.commit("incrementStep", 1);
+        this.$store.commit("incrementStep");
       }
     },
+    setError(message) {
+      this.$formulate.handle(
+        {
+          inputErrors: {
+            consultationFee: message,
+          },
+        },
+        // eslint-disable-next-line
+        "step2"
+      );
+    },
+    checkValueRange(newValue) {
+      let value = Number(newValue.replace("R$ ", "").replaceAll(",", ""));
+      if (value < 30 || value > 350) {
+        value = 0;
+        this.setError("Valor tem que ser entre R$ 30 e R$ 350");
+        this.error = true;
+      } else {
+        this.setError("");
+        this.error = false;
+      }
+
+      return newValue;
+    },
+  },
+  mounted() {
+    const storedData = this.$store.getters.getFormData;
+    if (storedData) {
+      if (storedData.specialty) this.mainSpecialty = storedData.specialty;
+      if (storedData.consultationFee) {
+        this.consultationFee = storedData.consultationFee;
+      }
+      if (storedData.installments) {
+        this.cardInstallments = storedData.installments;
+      }
+      if (storedData.paymentmethods) {
+        this.paymentMethod = storedData.paymentmethods;
+      }
+    }
   },
 };
 </script>
